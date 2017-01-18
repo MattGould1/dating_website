@@ -1,0 +1,41 @@
+<div>
+  <div class="chat-modal" v-show="$store.state.chat.length !== 0"><!-- houses all chats -->
+    <div class="chat-navigation ">
+      <h3 class="text-white text-xs-center">Friends List <span class="fa fa-close" v-if="$store.state.chat.length !== 0" v-on:click="toggleFriends"></span></h3>
+      <small class="text-white text-xs-right" style="padding-left: 4px;">Click on users to talk!</small>
+
+      <ul class="chat-list list-group" v-show="showFriends == true">
+        <li v-for="user in $store.state.chat" class="list-group-item" :class="[ user.new ? 'new-friend-request' : '' ]" v-show="user.remove !== true">
+          <span v-on:click="createRoom(user._id)">
+            <img :src="user.avatar"> {{ user.username }} 
+            <span v-show="user.new">has added you. 
+              <button v-on:click="addFriend(user._id)" :id="'hideme' + user._id" class="btn btn-success">Add Friend</button> 
+            </span>
+          </span>
+          <button v-on:click="blockFriend(user._id)" class="btn btn-danger float-xs-right">Block</button>
+          <span class="tag tag-default tag-pill float-xs-right" v-show="user.active === false && user.unread !== 0">
+            {{ user.unread }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="chatroom" v-for="room in $store.state.chat" v-show="room.active === true && room.remove !== true">
+      <div class="chatroom-header text-white">
+        <img :src="room.avatar" style="max-height: 48px;"> - {{ room.username }}
+        <span style="float: right; line-height: 40px; margin-right: 10px; font-size: 20px;" v-on:click="closeRoom(room._id)" class="fa fa-close"> </span>
+      </div>
+      <div class="chatroom-body">
+        <ul class="chatroom-messages list-group">
+          <li v-for="messages in room.messages" class="list-group-item">
+            <img :src="messages.avatar"> {{ messages.username }} <br>
+            {{ messages.message }}
+          </li>
+        </ul>
+      </div>
+      <div class="chatroom-footer">
+        <input v-on:keyup.enter="message(room._id)" :id="'message_' + room._id" type="text">
+      </div>
+    </div>
+  </div>
+</div>

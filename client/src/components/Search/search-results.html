@@ -1,0 +1,17 @@
+<div>
+	<h1><i class="fa fa-users"></i> Results</h1>
+	<div class="row">
+		<router-link 	class="col-xs-6 col-md-3"
+						style="cursor: pointer;"
+						tag="div"
+						v-for="(user, index) in users"
+						:to="{ name: 'members', params: { userid: user._id }}">
+						
+						<img class="responsive" style="max-width: 300px; max-height: 300px;" :src="'http://127.0.0.1:8088/uploads/' + user.profile_pic">
+						<h3><i class="fa fa-online"></i> {{ user.username }}<h3>
+						<div class="search-info-box">
+							<span>{{ user.age }}, {{ user.country }}</span>
+						</div>
+		</router-link>
+	</div>
+</div>

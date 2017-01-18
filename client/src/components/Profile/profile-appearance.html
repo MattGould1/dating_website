@@ -1,0 +1,38 @@
+<div>
+  <form>
+
+    <h5 class="text-primary my-2">Let other members know about your appearance, we'll also use this information to match you with members who are looking for your type.</h5>
+
+    <div class="form-group" :class="[ errors.has('height') ? 'has-danger' : 'has-success' ]">
+        <label class="form-control-label" for="user_height">Height (in CM)</label>
+        <span class="wrap" v-waves.block>
+          <input 
+            v-model="height" 
+            v-validate.initial="height" 
+            data-rules="required|between:50,250" 
+            type="text" 
+            class="form-control" 
+            :class="[ errors.has('height') ? 'form-control-danger' : 'form-control-success' ]" 
+            id="user_height">
+        </span>
+        <p class="text-danger" v-show="fields.failed('height')">Please pick a height between 50cm and 250cm!</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('weight') ? 'has-danger' : 'has-success' ]">
+      <label for="user_height">Weight (in KG)</label>
+      <span class="wrap" v-waves.block>
+        <input 
+          v-model="weight" 
+          v-validate.initial="weight" 
+          data-rules="required|between:20,250" 
+          type="text" 
+          class="form-control" 
+          :class="[ errors.has('weight') ? 'form-control-danger' : 'form-control-success' ]" 
+          id="user_weight">
+      </span>
+      <p class="text-danger" v-show="fields.failed('weight')">Please choose a weight between 20kg and 250kg!</p>
+    </div>
+
+    <button type="submit" v-on:click="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

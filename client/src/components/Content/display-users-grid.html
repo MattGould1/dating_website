@@ -1,0 +1,27 @@
+<div>
+	<h1><i class="fa fa-users"></i> {{ title }}</h1>
+	
+		<div class="row">
+			<router-link
+				class="col-xs-4 col-md-2"
+				style="cursor: pointer;"
+				tag="div"
+				v-for="(user, index) in users"
+				:to="{ name: 'members', params: { userid: user._id }}">
+
+				<div class="card display-users">
+
+					<img class="card-img-top" :src="'http://127.0.0.1:8088/uploads/' + user.profile_pic + '-thumbnail'">
+					<div class="card-block" :class="[ (index & 1) ? 'dark-bg card-inverse' : 'normal-bg card-inverse']">
+						<h4 class="card-title"><i class="fa fa-at"></i>{{ user.username }}</h4>
+					</div>
+
+					<div class="card-footer">
+						<span><i class="fa fa-id-card"></i> {{ user.age }}, {{ user.country }}, {{ user.last_active }}</span>
+					</div>
+				</div>
+
+			</router-link>
+		</div>
+
+</div>

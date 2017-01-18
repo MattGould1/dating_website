@@ -1,0 +1,26 @@
+<div>
+  my dashboard
+
+  {{ id }}
+  likes
+  loves
+  friends
+  comments
+  <div class="dashboard-likes">
+    <h2>People who like me :)</h2>
+    <ul class="chatroom-messages list-group">
+      <li v-for="user in likes" class="list-group-item">
+        <img :src="user.profile_pic + '-avatar'"> {{ user.username }} <br>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dashboard-loves">
+    <h2>People who love me :)</h2>
+    <ul class="chatroom-messages list-group">
+      <li v-for="user in likes" class="list-group-item">
+        <img :src="user.profile_pic + '-avatar'"> {{ user.username }} <br>
+      </li>
+    </ul>
+  </div>
+</div>

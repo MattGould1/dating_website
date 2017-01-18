@@ -1,0 +1,11 @@
+<div>
+	<div class="user-appbar white-text text-xs-center">
+		<div class="row">
+			<span v-waves.block class="col-xs-12 col-md-12">
+		        <router-link class="py-1" tag="div" :to="{ name: 'members-profile', params: { userid: $route.params.userid }}">
+					<i class="fa fa-home"></i> {{ userobj.username }}
+		        </router-link>
+		    </span>
+	    </div>
+	</div>
+</div>

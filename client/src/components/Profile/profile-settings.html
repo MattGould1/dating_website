@@ -1,0 +1,13 @@
+<div>
+  <form>
+
+    <h5 class="text-primary my-2">Choose settings for your profile page. These will let you customise your own page.</h5>
+
+    <div class="form-group has-success">
+      <label class="form-control-label" for="background">Choose a background colour for your profile page</label>
+      <chrome-picker v-model="background" @change-color="onChange"></chrome-picker>
+    </div>
+
+    <button type="submit" v-on:click="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

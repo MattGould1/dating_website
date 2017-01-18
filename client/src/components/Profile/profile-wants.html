@@ -1,0 +1,43 @@
+<div>
+  <form>
+
+    <h5 class="text-primary my-2">We will use this information to help find matches for you, it will also set defaults on the search page (you can change these).</h5>
+    
+    <div class="form-group" :class="[ errors.has('wants.min_age') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_min_age">Minimum age of your partner</label>
+      <input 
+        v-model="wants.min_age" 
+        v-validate.initial="wants.min_age" 
+        data-rules="numeric|between:16,120" 
+        type="text" 
+        class="form-control" 
+        :class="[ errors.has('wants.min_age') ? 'form-control-danger' : 'form-control-success']"
+        id="user_min_age">
+      <p class="text-danger" v-show="fields.failed('wants.min_age')">Please choose an age between 16 and 120, thanks</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('wants.max_age') ? 'has-danger' : 'has-success']">
+      <label class="form-control-label" for="user_max_age">Maximum age of your partner</label>
+      <input 
+        v-model="wants.max_age" 
+        v-validate.initial="wants.max_age" 
+        data-rules="numeric|between:16,120" 
+        type="text" 
+        class="form-control" 
+        :class="[ errors.has('wants.max_age') ? 'form-control-danger' : 'form-control-success']"
+        id="user_max_age">
+      <p class="text-danger" v-show="fields.failed('wants.max_age')">Please choose an age between 16 and 120, thanks</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('wants.gender') ? 'has-danger' : 'has-success']">
+      <label class="form-control-label" for="user_country">Looking for</label>
+      <multiselect
+        :value="wants.gender"
+        :options="options"
+        @input="updateSelected">
+      </multiselect>
+    </div>
+
+    <button type="submit" v-on:click="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

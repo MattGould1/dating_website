@@ -1,0 +1,13 @@
+<div>
+	<form>
+		<div class="form-group" :class="[ errors.has('picture1') ? 'has-danger' : 'has-success' ]">
+			<input data-rules="image|size:1000" v-validate name="picture1" v-bind:id="image_id" type="file" v-on:change="prepare">
+			<p class="text-danger" v-show="fields.failed('picture1')">{{ errors.first('picture1') }}</p>
+		</div>
+		<button v-on:click="submit" type="submit" class="btn btn-primary">{{ submit_i18n }}</button>
+	</form>
+
+	<div v-show="image_ready">
+		<img style="max-height: 300px; max-width: 300px;" v-bind:id="preview_id" src="#">
+	</div>
+</div>

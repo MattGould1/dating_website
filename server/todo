@@ -1,0 +1,38 @@
+pages -
+	homepage
+		login
+		create account
+		display active users (girls with highest ratings)
+
+	farang page 
+		disply active users (men with highest ratings)
+		create account
+		
+	search page
+	create account
+	profile page
+	chat page
+
+
+comment -
+	rating
+	content
+	written_by
+	written_for
+
+review -
+	user_id (object_id)
+	reviewed_user_id (object_id)
+	rating (int)
+	content (varchar)
+
+search -
+	search by age
+	search by sex
+	search by country
+	search by location
+	search by height
+	search by height
+	search by education
+	search by children
+	search by salary

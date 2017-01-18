@@ -1,0 +1,59 @@
+<div>
+  <nav class="appbar dark-bg navbar navbar-fixed-top">
+    <div v-if="$store.state.authenticated">
+      <ul class="nav navbar-nav">
+        <!-- search -->
+       
+        <router-link class="nav-item" tag="li" :to="{ name: 'search' }" exact>
+          <a class="nav-link">
+            <span v-waves.button>
+              <i class="fa fa-search"></i> Search
+            </span>
+          </a>
+        </router-link>
+      
+
+        <!-- my own profile -->
+        <router-link class="nav-item" tag="li" :to="{ name: 'members', params: { userid: 'me' }}">
+          <a class="nav-link">
+            <span v-waves.button>
+              <i class="fa fa-home"></i> My Profile
+            </span>
+          </a>
+        </router-link>
+
+        <!-- edit profile -->
+        <router-link class="nav-item" tag="li" :to="{ name: 'profile', params: { id: 'me' }}" >
+          <a class="nav-link">
+            <span v-waves.button>
+              <i class="fa fa-address-card"></i> Profile
+            </span>
+          </a>
+        </router-link>
+
+        <!-- logout -->
+        <li class="nav-item float-lg-right">
+          <a v-on:click="logout" class="nav-link logout">
+            <span v-waves.button>
+              Logout
+            </span>
+          </a>
+        </li>
+
+        <!-- user info-->
+        <li class="nav-item float-lg-right user-navbar-info">
+          <a class="nav-link">Welcome, {{ $store.state.user.username }}
+            <img class="rounded-circle" style="height: 35px; width: 35px;" v-bind:src="$store.state.user.avatar">
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div v-if="!$store.state.authenticated">
+      <form class="form-inline float-lg-right">
+        <button class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </nav>
+</div>

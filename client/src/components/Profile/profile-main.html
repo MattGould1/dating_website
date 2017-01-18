@@ -1,0 +1,130 @@
+<div>
+  <form>
+
+    <h5 class="text-primary my-2">This will help other members get to know you, its also the info we use to display your profile on our search. Please take your time to fill this out as accurately as possible!</h5>
+
+    <div class="form-group" :class="[ errors.has('first_name') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_first_name">First Name</label>
+      <span class="wrap" v-waves.block>
+        <input 
+          type="text"
+          v-model="first_name"
+          v-validate="first_name" 
+          data-rules="required|min:3|max:20"
+          class="form-control"
+          :class="[ errors.has('first_name') ? 'form-control-danger' : 'form-control-success' ]" 
+          id="user_first_name" 
+          placeholder="John">
+        </span>
+      <p class="text-danger" v-show="fields.failed('first_name')">{{ errors.first('first_name') }}</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('last_name') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_last_name">Last Name</label>
+      <span class="wrap" v-waves.block>
+        <input 
+          type="text"
+          v-model="last_name" 
+          v-validate="last_name" 
+          data-rules="required|min:3|max:20" 
+          class="form-control" 
+          :class="[ errors.has('last_name') ? 'form-control-danger' : 'form-control-success' ]" 
+          id="user_last_name" 
+          placeholder="Smith">
+      </span>
+      <p class="text-danger" v-show="fields.failed('last_name')">{{ errors.first('last_name') }}</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('biography') ? 'has-danger' : 'has-success ']">
+      <label class="form-control-label">Biography</label>
+      <span class="wrap" v-waves.block>
+        <textarea
+          v-model="biography"
+          class="form-control"
+          :class="[ errors.has('biography') ? 'form-control-danger' : 'form-control-success']"
+          id="user_biography"
+          v-validate.initial="biography"
+          data-rules="max:1000"
+          rows="3"
+          placeholder="Let people know a little about you">
+        </textarea>
+        <p class="text-danger" v-show="fields.failed('biography')">Please keep it under 1000 characters!</p>
+
+      </span>
+    </div>
+    <div class="form-group" :class="[ errors.has('religion') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_last_name">Religion</label>
+      <span class="wrap" v-waves.block>
+        <input 
+          type="text"
+          v-model="religion" 
+          class="form-control" 
+          :class="[ errors.has('religion') ? 'form-control-danger' : 'form-control-success' ]" 
+          id="user_religion" 
+          placeholder="Buddhist">
+      </span>
+      <p class="text-danger" v-show="fields.failed('religion')">{{ errors.first('religion') }}</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('age') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_last_name">Age</label>
+      <span class="wrap" v-waves.block>
+        <input 
+          type="text"
+          v-model="age" 
+          v-validate="age" 
+          data-rules="between:16,120" 
+          class="form-control" 
+          :class="[ errors.has('age') ? 'form-control-danger' : 'form-control-success' ]" 
+          id="user_age">
+      </span>
+      <p class="text-danger" v-show="fields.failed('age')">Please choose an age over 16!</p>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('speak_english') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_speak_english">How good is your English?</label>
+      <multiselect
+        :value="speak_english"
+        :options="options_english"
+        @input="updateSpeakEnglish">
+      </multiselect>
+    </div>
+
+    <div class="form-group" :class="[ errors.has('speak_english') ? 'has-danger' : 'has-success' ]">
+      <label class="form-control-label" for="user_country">Where are you from?</label>
+      <multiselect
+        :value="country"
+        :options="options"
+        @input="updateSelected">
+      </multiselect>
+    </div>
+
+  <!--   <div class="form-group" :class="{'has-error': errors.has('age') }">
+      <label for="user_dob">Date of birth (this isn't required and won't be publicly viewable!)</label>
+      <div>
+        <date-picker :date="dob" :option="option"></date-picker>
+      </div>
+    </div> -->
+
+    <fieldset class="form-group has-success">
+      <div class="form-check">
+        <label class="custom-control custom-checkbox" for="user_have_children">
+          <input v-model="have_children" type="checkbox" class="custom-control-input" id="user_have_children">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Do you have children?</span>
+        </label>
+      </div>
+
+      <div class="form-check">
+        <label class="custom-control custom-checkbox" for="user_want_children">
+          <input v-model="want_children" type="checkbox" class="custom-control-input" id="user_want_children">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Do you want children?</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <button type="submit" v-on:click="submit" class="btn btn-primary">Submit</button>
+    
+  </form>
+</div>

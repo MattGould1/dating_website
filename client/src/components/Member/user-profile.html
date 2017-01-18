@@ -1,0 +1,76 @@
+<div>
+	<div class="row">
+		<div class="col-xs-12 col-md-4">
+			<user-sidebar v-bind:userobj="user"></user-sidebar>
+		</div>
+		<div class="col-xs-12 col-md-8">
+			<user-appbar v-bind:userobj="user" v-bind:route="route"></user-appbar>
+
+			<div class="alert-danger alert alert-dismissible fade in mt-1 mr-1" v-if="$route.params.userid == 'me' && dismiss == false">
+				<h4 class="alert-heading">Hi{{ ' ' + user.first_name }}, your profile is still missing some information, the more you add the easier it is for members to find you.</h4>
+				<div v-for="item, key in user">
+					<div v-if="item === '' || item === 0 && key !== '__v'">
+						<router-link class="text-danger" style="cursor: pointer;" tag="p" to="/profile">
+							Please fill out your {{ key }}
+						</router-link>
+					</div>
+
+					<div v-if="key == 'gallery' && item.length == 0">
+						<h4 class="text-danger">You've not added a gallery yet!</h4>
+					</div>
+				</div>
+
+				<strong style="cursor: pointer;" v-on:click="dismissMe">Click me to dismiss</strong>
+			</div>
+
+			<div v-show="!user.description" class="col-xs-12">
+				<h2>About {{ user.first_name + ' ' + user.last_name }}</h2>
+				<p>{{ user.biography }}</p>
+			</div>
+
+			<div class="user-gallery row" id="slider" v-if="user.gallery">
+				<h2 class="user-gallery-heading col-xs-12">Take a peak at my gallery!</h2>
+				<div class="slider-container col-xs-12 col-md-4 mt-1" v-for="image in user.gallery">
+					<img class="rounded" alt="hello" :src="'http://localhost:8088' + image.thumbnail.substring(1)" :original="'http://localhost:8088' + image.original.substring(1)">
+				</div>
+			</div>
+
+			<div class="row user-comments mt-2 mr-2">
+				<div class="col-xs-12">
+					<form>
+						<div class="form-group" :class="[ errors.has('comment') ? 'has-danger' : 'has-success' ]">
+							<h3 class="form-control-input">Post your comment onto {{ user.first_name }}'s profile!</h3>
+							<textarea 
+								v-model="comment" 
+								v-validate.initial="comment" 
+								data-rules="required" 
+								class="form-control"
+								:class="[ errors.has('comment') ? 'form-control-danger' : 'form-control-success' ]" rows="3" placeholder="Write a comment!"></textarea>
+								<p class="text-danger" v-show="fields.failed('comment')">This is required, thanks for writing your comment!</p>
+								<button class="btn btn-lg btn-success mt-1" v-on:click="postComment">Post Comment</button>
+						</div>
+					</form>
+				</div>
+
+				<div id="comments" class="col-xs-12" v-if="user._comments && user._comments.length !== 0">
+					<div class="row">
+						<div class="col-xs-12 my-1" :id="comment._id" v-for="comment in user._comments">
+							<img class="comment-avatar" :src="comment.avatar">
+							<div class="comment-meta ml-1">
+								<span class="comment-time">{{ comment.created_at }}</span><br>
+								<span class="comment-username">{{ comment.username }} : </span>
+								<div class="comment-comment">
+									{{ comment.comment }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-else class="col-xs-12">
+					<h3>It looks like there's been no comments yet. Be the first!</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

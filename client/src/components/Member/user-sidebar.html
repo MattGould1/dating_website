@@ -1,0 +1,162 @@
+<div>
+	<div class="user-sidebar">
+		<!-- display profile pic -->
+		<div class="user-image text-xs-center">
+			<div v-if="userobj.profile_pic">
+				<img class="my-2" :src="userobj.thumbnail">
+				<vue-core-image-upload
+					v-if="$route.params.userid == 'me'"
+					class="fa fa-camera profile_pic_user"
+					inputOfFile="profile_pic"
+					text="Upload A Profile Pic"
+					:maxFileSize="2097152"
+					:maxHeight="160"
+					:maxWidth="160"
+					:cropBtn="{ ok: 'Save', cancel: 'Cancel' }"
+					:crop="true"
+					url="//localhost:8088/auth/profile/upload"
+					v-on:imageuploaded="imageuploaded"
+					v-on:imageuploading="imageuploading"
+					v-on:errorhandle="imageerror">
+				</vue-core-image-upload>
+			</div>
+			<div v-else>
+				<vue-core-image-upload 
+					v-if="$route.params.userid == 'me'"
+					class="fa fa-camera add-profile btn btn-lg button-success"
+					inputOfFile="profile_pic"
+					text="Upload Profile Pic"
+					:maxFileSize="2097152"
+					:maxHeight="160"
+					:maxWidth="160"
+					:cropBtn="{ ok: 'Save', cancel: 'Cancel' }"
+					:crop="true"
+					url="//localhost:8088/auth/profile/upload"
+					v-on:imageuploaded="imageuploaded"
+					v-on:imageuploading="imageuploading"
+					v-on:errorhandle="imageerror">
+				</vue-core-image-upload>
+			</div>
+			<div class="text-xs-center white-text p-1 cta-buttons-2">
+				<div class="cta-button like" v-on:click="likeme">
+					<i :style="{ color: like }" class="fa fa-thumbs-up"></i>
+				</div>
+				<div class="cta-button love" v-on:click="loveme">
+					<i :style="{ color: love }" class="fa fa-heart"></i>
+				</div>
+			</div>
+		</div>
+
+		<h2 class="cta text-xs-center white-text py-1" v-if="userobj.username">Say hi to {{ userobj.first_name + ' ' + userobj.last_name }} </h2>
+
+		<h2 class="cta text-xs-center white-text py-1">
+			<button class="btn btn-lg btn-success" v-on:click="createChat">Start talking!</button>
+		</h2>
+
+		<span class="glyphicon glyphicon-thumbs-up"></span>
+		<div class="white-text p-2 user-info">
+			<h3>About Me</h3>
+			<div v-if="userobj.first_name && userobj.last_name">
+				<i class="fa fa-address-book"></i>
+				<span class="fullname">
+					<span class="heading"> Name: </span>
+					<span class="firstname">
+						{{ userobj.first_name }}
+					</span>
+
+					<span class="lastname">
+						{{ userobj.last_name }}
+					</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.speak_english">
+				<i class="fa fa-language"></i>
+				<span class="speak_english">
+					<span class="heading"> English: </span>
+					<span>{{ userobj.speak_english }}</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.country">
+				<i class="fa fa-map-pin"></i>
+				<span class="country">
+					<span class="heading"> Location: </span>
+					<span>{{ userobj.country }}</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.age">
+				<i class="fa fa-id-card"></i>
+				<span class="age">
+					<span class="heading"> Age: </span>
+					<span>{{ userobj.age }}</span>
+				</span>
+			</div>
+			<div v-if="userobj.religion">
+				<i class="fa fa-info"></i>
+				<span class="religion">
+					<span class="heading"> Religion: </span>
+					<span>{{ userobj.religion }}</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.have_children">
+				<i class="fa fa-child"></i>
+				<span class="have_children">
+					<span class="heading"> I have children.</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.want_children">
+				<i class="fa fa-child"></i>
+				<span class="want_children">
+					<span class="heading"> I want children.</span>
+				</span>
+			</div>
+
+			<h3 class="mt-1" v-if="userobj.height || userobj.weight">My Appearance</h3>
+			<div v-if="userobj.height">
+				<i class="fa fa-check"></i>
+				<span class="height">
+					<span class="heading"> Height: </span>
+					<span>{{ userobj.height }}cm</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.weight">
+				<i class="fa fa-check"></i>
+				<span class="weight">
+					<span class="heading"> Weight: </span>
+					<span>{{ userobj.weight }}kg</span>
+				</span>
+			</div>
+
+			<h3 class="mt-1" v-if="userobj.salary || userobj.job || userobj.education">My Education & Job</h3>
+			<div v-if="userobj.education">
+				<i class="fa fa-university"></i>
+				<span class="education">
+					<span class="heading"> Education: </span>
+					<span>{{ userobj.education }}</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.job">
+				<i class="fa fa-google"></i>
+				<span class="job">
+					<span class="heading"> Job: </span>
+					<span>{{ userobj.job }}</span>
+				</span>
+			</div>
+
+			<div v-if="userobj.salary">
+				<i class="fa fa-money"></i>
+				<span class="salary">
+					<span class="heading"> Salary: </span>
+					<span>{{ userobj.salary }}</span>
+				</span>
+			</div>
+
+		</div>
+	</div>
+</div>
